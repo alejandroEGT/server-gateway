@@ -1,0 +1,28 @@
+spring:
+  cloud:
+    gateway:
+      routes:
+        - id: servicio-producto
+          uri: lb://servicio-producto
+          predicates:
+            - Path=/api/productos/**
+          filters:
+           - StripPrefix=2
+        - id: servicio-item
+          uri: lb://servicio-item
+          predicates:
+            - Path=/api/items/**
+          filters:
+          - StripPrefix=2
+          
+        - id: cuentas
+          uri: lb://cuentas
+          predicates:
+            - Path=/api/cuentas/**
+           #- Header= token, \d+
+           #- Method= GET, POST
+           #- Query= action, true
+           #- Cookie= color, azul
+          filters:
+          - StripPrefix=2 
+          
